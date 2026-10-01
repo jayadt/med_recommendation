@@ -40,28 +40,28 @@ def task_0_setup_tables(conn: pyodbc.Connection):
         #     END
         # """)
 
-        # Seed default age groups if they do not already exist. (Task 3)
-        cursor.execute("""
-            IF NOT EXISTS (
-                SELECT 1
-                FROM age_group
-                WHERE id = 1
-            )
-            BEGIN
-                INSERT INTO age_group (id, name, min_age, max_age)
-                VALUES (1, 'Pediatric', 0, 11);
-            END
+        # # Seed default age groups if they do not already exist. (Task 3)
+        # cursor.execute("""
+        #     IF NOT EXISTS (
+        #         SELECT 1
+        #         FROM age_group
+        #         WHERE id = 1
+        #     )
+        #     BEGIN
+        #         INSERT INTO age_group (id, name, min_age, max_age)
+        #         VALUES (1, 'Pediatric', 0, 11);
+        #     END
 
-            IF NOT EXISTS (
-                SELECT 1
-                FROM age_group
-                WHERE id = 2
-            )
-            BEGIN
-                INSERT INTO age_group (id, name, min_age, max_age)
-                VALUES (2, 'Adult/Senior', 12, 999);
-            END
-        """)
+        #     IF NOT EXISTS (
+        #         SELECT 1
+        #         FROM age_group
+        #         WHERE id = 2
+        #     )
+        #     BEGIN
+        #         INSERT INTO age_group (id, name, min_age, max_age)
+        #         VALUES (2, 'Adult/Senior', 12, 999);
+        #     END
+        # """)
 
         # 3. Append to existing pharmacy_products (Task 2)
         cursor.execute("""
