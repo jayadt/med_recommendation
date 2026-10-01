@@ -48,9 +48,10 @@ def get_clinic_databases(conn):
     query = """
         SELECT name FROM sys.databases 
     """
-    result = conn.execute(query)
-    # return ["drtoolisi_dev", "drtoolisi_devfake"]
-    return result
+    cursor = conn.cursor()
+    cursor.execute(query)
+    # Fetch all rows and extract the database name from the first column of each row
+    return [row[0] for row in cursor.fetchall()]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run drug recommendations pipeline across clinics.")
@@ -71,7 +72,10 @@ if __name__ == "__main__":
             print(f"Error: The file {args.failed_run_file} does not exist.")
             exit(1)
     else:
-        clinic_dbs = get_clinic_databases()
+        master_conn_str = BASE_CONN_STR.format(db_name="master")
+        master_conn = pyodbc.connect(master_conn_str)
+        clinic_dbs = get_clinic_databases(master_conn)
+        master_conn.close()
         print(f"Loaded {len(clinic_dbs)} databases from master list.")
 
     if not clinic_dbs:
