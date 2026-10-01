@@ -23,22 +23,22 @@ def task_0_setup_tables(conn: pyodbc.Connection):
             END
         """)
 
-        # 2. Setup age_group (Task 3)
-        cursor.execute("""
-            IF OBJECT_ID('age_group', 'U') IS NULL
-            BEGIN
-                CREATE TABLE age_group (
-                    id INT PRIMARY KEY,
-                    name NVARCHAR(50) NOT NULL,
-                    min_age INT NOT NULL,
-                    max_age INT NOT NULL,
-                    CONSTRAINT CK_age_group_age_range
-                        CHECK (min_age >= 0 AND max_age >= min_age),
-                    CONSTRAINT UQ_age_group_name
-                        UNIQUE (name)
-                );
-            END
-        """)
+        # # 2. Setup age_group (Task 3)
+        # cursor.execute("""
+        #     IF OBJECT_ID('age_group', 'U') IS NULL
+        #     BEGIN
+        #         CREATE TABLE age_group (
+        #             id INT PRIMARY KEY,
+        #             name NVARCHAR(50) NOT NULL,
+        #             min_age INT NOT NULL,
+        #             max_age INT NOT NULL,
+        #             CONSTRAINT CK_age_group_age_range
+        #                 CHECK (min_age >= 0 AND max_age >= min_age),
+        #             CONSTRAINT UQ_age_group_name
+        #                 UNIQUE (name)
+        #         );
+        #     END
+        # """)
 
         # Seed default age groups if they do not already exist. (Task 3)
         cursor.execute("""
